@@ -5,7 +5,7 @@ description: Value investing strategy that orchestrates analysis plugins into in
 
 # Value Investing Strategy
 
-Orchestrates existing analysis plugins (quality, forensic, DCF) into a cohesive value investing evaluation. When analysis plugins aren't available, performs self-contained analysis from raw FMP data.
+Orchestrates existing analysis plugins (quality, forensic, DCF, insider, earnings) into a cohesive value investing evaluation. When analysis plugins aren't available, performs self-contained analysis from raw FMP data.
 
 ## Philosophy
 
@@ -34,7 +34,9 @@ The unique contribution of the strategy layer:
 | `apex-data-financial:finviz` | Yes | Quick fundamentals snapshot and sentiment |
 | `apex-analysis-quality:quality` | No | Phase 1 delegation — business quality assessment |
 | `apex-analysis-forensic:forensic` | No | Phase 2 delegation — forensic accounting verification |
+| `apex-analysis-insider:insider` | No | Phase 2 enrichment — insider & institutional ownership signals |
 | `apex-analysis-dcf:dcf` | No | Phase 3 delegation — DCF valuation |
+| `apex-analysis-earnings:earnings` | No | Phase 3 enrichment — earnings trajectory and revision momentum |
 
 ## References
 
@@ -55,7 +57,9 @@ Before starting, check what analysis outputs already exist:
 ```
 .analysis/TICKER/quality/    → Phase 1 delegation available
 .analysis/TICKER/forensic/   → Phase 2 delegation available
+.analysis/TICKER/insider/    → Phase 2 enrichment available
 .analysis/TICKER/dcf/        → Phase 3 delegation available
+.analysis/TICKER/earnings/   → Phase 3 enrichment available
 ```
 
 Also check if analysis plugin skills are available in the current environment (they may be installed but not yet run for this ticker).
@@ -64,7 +68,7 @@ Also check if analysis plugin skills are available in the current environment (t
 
 | Mode | Condition | Behavior |
 |------|-----------|----------|
-| **Pure synthesis** | All 3 analysis outputs exist | Read and synthesize existing outputs, add inversion + verdict |
+| **Pure synthesis** | All 5 optional analysis outputs exist | Read and synthesize existing outputs, add inversion + verdict |
 | **Hybrid** | Some analysis outputs exist | Use available outputs, self-contain missing phases |
 | **Invoke plugins** | Analysis plugins installed, no outputs | Invoke analysis plugins first, then synthesize |
 | **Self-contained** | No analysis plugins available | Run all phases from raw FMP data using Claude's reasoning |

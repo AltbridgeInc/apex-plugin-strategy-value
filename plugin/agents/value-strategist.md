@@ -16,7 +16,9 @@ Orchestrates a 5-phase value investing evaluation, synthesizing analysis plugin 
 | apex-data-financial:finviz | Quick fundamentals snapshot and sentiment (plugin) |
 | apex-analysis-quality:quality | Business quality assessment — Phase 1 delegation (plugin, optional) |
 | apex-analysis-forensic:forensic | Forensic accounting — Phase 2 delegation (plugin, optional) |
+| apex-analysis-insider:insider | Insider & institutional ownership — Phase 2 enrichment (plugin, optional) |
 | apex-analysis-dcf:dcf | DCF valuation — Phase 3 delegation (plugin, optional) |
+| apex-analysis-earnings:earnings | Earnings trajectory — Phase 3 enrichment (plugin, optional) |
 
 ## Execution
 
@@ -34,10 +36,14 @@ Determine per-phase routing:
 |-------|---------------|--------|
 | `.analysis/TICKER/quality/` exists | Phase 1 | Read existing output (delegation) |
 | `.analysis/TICKER/forensic/` exists | Phase 2 | Read existing output (delegation) |
+| `.analysis/TICKER/insider/` exists | Phase 2 | Read insider profile (enrichment) |
 | `.analysis/TICKER/dcf/` exists | Phase 3 | Read existing output (delegation) |
+| `.analysis/TICKER/earnings/` exists | Phase 3 | Read earnings profile (enrichment) |
 | Quality plugin available, no output | Phase 1 | Invoke plugin, then read output |
 | Forensic plugin available, no output | Phase 2 | Invoke plugin, then read output |
+| Insider plugin available, no output | Phase 2 | Invoke plugin, then read output (enrichment) |
 | DCF plugin available, no output | Phase 3 | Invoke plugin, then read output |
+| Earnings plugin available, no output | Phase 3 | Invoke plugin, then read output (enrichment) |
 | No plugin, no output | Phases 1-3 | Self-contained from FMP data |
 
 Always ensure FMP data is available. Fetch via `apex-data-financial:fmp` if needed.

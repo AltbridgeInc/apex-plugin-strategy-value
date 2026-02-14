@@ -26,7 +26,9 @@ Extract ticker from `$ARGUMENTS`. Convert to uppercase.
 Check for existing analysis outputs that can be synthesized:
 - `.analysis/TICKER/quality/` — business quality assessment
 - `.analysis/TICKER/forensic/` — forensic accounting scores
+- `.analysis/TICKER/insider/` — insider & institutional ownership signals
 - `.analysis/TICKER/dcf/` — DCF valuation model
+- `.analysis/TICKER/earnings/` — earnings trajectory and revision momentum
 
 If outputs exist, the strategy will synthesize them. If not, it checks for installed analysis plugins or falls back to self-contained analysis.
 

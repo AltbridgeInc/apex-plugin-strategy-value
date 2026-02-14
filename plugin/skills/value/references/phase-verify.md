@@ -19,6 +19,46 @@ Synthesize into Phase 2 summary. Focus on whether the numbers can be trusted for
 
 Invoke the forensic plugin for this ticker first, then read the output.
 
+## Insider Enrichment
+
+Insider signals enrich Phase 2 regardless of whether forensic delegation was used. Management conviction (or lack thereof) is a powerful trust signal — Munger's "show me the incentives."
+
+### Insider Delegation Path
+
+**When `.analysis/TICKER/insider/insider-profile.json` exists:**
+
+Read the insider profile and extract:
+- Overall score (0-10) and verdict (Strong Conviction / Positive Signals / Neutral / Distribution / Significant Selling)
+- Insider trading patterns: role-weighted buy/sell ratio, material trades, notable buyers
+- Routine vs opportunistic classification: opportunistic buy/sell ratio, signal change direction
+- Institutional flow: net flow direction (dollars + % of float), new vs closed positions
+- Ownership structure: insider %, institutional %, top-10 concentration, holder quality
+- Cluster buying alerts (2+ insiders buying within 30 days, each >$100K)
+- Flags (any component scoring < 3)
+
+Wire into Phase 2 assessment:
+- **Score ≥ 7 (Positive/Strong Conviction):** Insiders are putting money where their mouth is — supports trust in reported numbers
+- **Score 4-6.99 (Neutral):** No strong signal either way — weight other verification factors more
+- **Score < 4 (Distribution/Significant Selling):** Red flag — heavy insider selling while reporting great numbers is Munger's "avoid stupidity" trigger
+- **Cluster buying:** Particularly bullish signal — multiple insiders independently buying suggests conviction
+- **Opportunistic sells during earnings beats:** Contradicts reported strength — escalate to red flag
+
+**When `apex-analysis-insider:insider` plugin is available but no output exists:**
+
+Invoke the insider plugin for this ticker first, then read the output.
+
+### Insider Self-Contained Path
+
+**When no insider plugin or output available:**
+
+Use raw FMP data to assess insider conviction:
+- Pull insider trading data for last 12 months
+- Count buys vs sells by dollar amount (not just transaction count)
+- Note any cluster buying pattern (multiple insiders buying within 30 days)
+- Check if selling is concentrated in top executives vs broad-based
+- Pull institutional ownership percentage for governance signal
+- This provides a simplified version of what the full insider plugin does with its 4-component scoring
+
 ## Self-Contained Path
 
 **When no forensic plugin or output available:**
@@ -59,6 +99,8 @@ Use raw FMP data from `.data/financial/fmp/TICKER/` to verify:
 
 The dumbest thing is usually ignoring red flags because you're excited about the thesis. List any red flags found, even minor ones. Munger's insight: it's more important to avoid being stupid than to be brilliant.
 
+If insider data is available: heavy selling by insiders while reporting great numbers is a classic "avoid stupidity" failure. Insiders know more than you — if they're selling, ask why before you buy.
+
 ### What You Don't Know (Required)
 > What aspects of these financials do I NOT understand?
 
@@ -68,9 +110,11 @@ Be honest. Off-balance-sheet items? Related-party transactions? Complex revenue 
 
 Produce a summary with:
 - **Source:** [plugin output / self-contained]
+- **Insider source:** [insider plugin / self-contained / not available]
 - FCF vs Net Income alignment (aligned / diverging / red flag)
 - Debt trajectory (improving / stable / deteriorating)
 - Share dilution (minimal / moderate / aggressive)
+- Insider conviction (strong buying / neutral / distribution / not assessed) — from insider enrichment
 - Red flags found (list each, or "none identified")
 - Munger's "avoid stupidity" answer
 - Gaps in understanding acknowledged

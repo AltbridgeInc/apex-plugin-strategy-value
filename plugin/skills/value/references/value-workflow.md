@@ -9,12 +9,16 @@ Before starting any phase, determine what's available:
 1. **Check existing analysis outputs:**
    - Look for `.analysis/TICKER/quality/` → quality assessment available
    - Look for `.analysis/TICKER/forensic/` → forensic scores available
+   - Look for `.analysis/TICKER/insider/` → insider conviction signals available (Phase 2 enrichment)
    - Look for `.analysis/TICKER/dcf/` → DCF valuation available
+   - Look for `.analysis/TICKER/earnings/` → earnings trajectory available (Phase 3 enrichment)
 
 2. **Check installed plugins:**
    - Is `apex-analysis-quality:quality` skill available? → can invoke for Phase 1
    - Is `apex-analysis-forensic:forensic` skill available? → can invoke for Phase 2
+   - Is `apex-analysis-insider:insider` skill available? → can invoke for Phase 2 enrichment
    - Is `apex-analysis-dcf:dcf` skill available? → can invoke for Phase 3
+   - Is `apex-analysis-earnings:earnings` skill available? → can invoke for Phase 3 enrichment
 
 3. **Determine per-phase mode:**
    - Output exists → read and synthesize (delegation)
@@ -46,7 +50,9 @@ Execute via delegation or self-contained path. Answer:
 - Debt trajectory — is leverage increasing?
 - Share dilution — is management enriching itself?
 
-**Output:** Verification summary with red flags (or clean bill of health).
+**Insider enrichment:** If `.analysis/TICKER/insider/` exists or insider plugin is available, incorporate insider conviction signals — are insiders putting money where their mouth is? Heavy selling while reporting great numbers is a red flag.
+
+**Output:** Verification summary with red flags (or clean bill of health), including insider conviction signal if available.
 
 ## Step 3: Phase 3 — Determine Value
 
@@ -57,7 +63,9 @@ Execute via delegation or self-contained path. Answer:
 - What is the market pricing in? What am I seeing differently? (Marks' second-level thinking)
 - Earnings yield vs treasury rate — am I being compensated for equity risk?
 
-**Output:** Valuation summary with fair value range and margin of safety.
+**Earnings enrichment:** If `.analysis/TICKER/earnings/` exists or earnings plugin is available, incorporate earnings trajectory — revision momentum, surprise history, and analyst consensus inform whether forward multiples understate or overstate value.
+
+**Output:** Valuation summary with fair value range and margin of safety, incorporating earnings trajectory if available.
 
 ## Step 4: Phase 4 — Invert
 
