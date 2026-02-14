@@ -1,0 +1,12 @@
+{
+  "name": "apex-strategy-value",
+  "version": "1.0.0",
+  "description": "Value investing strategy that orchestrates analysis plugins into cohesive investment decisions using principles from Buffett, Munger, Graham, Li Lu, Marks, and Klarman.",
+  "author": {
+    "name": "Apex Investment Research",
+    "email": "contact@altbridge.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/AltbridgeInc/apex-plugin-strategy-value",
+  "repository": "https://github.com/AltbridgeInc/apex-plugin-strategy-value"
+}

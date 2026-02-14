@@ -1,0 +1,14 @@
+{
+  "name": "apex-plugin-strategy-value",
+  "owner": {
+    "name": "Apex Investment Research",
+    "email": "contact@altbridge.com"
+  },
+  "plugins": [
+    {
+      "name": "apex-strategy-value",
+      "source": "./plugin",
+      "description": "Value investing strategy that orchestrates analysis plugins into cohesive investment decisions using principles from Buffett, Munger, Graham, Li Lu, Marks, and Klarman."
+    }
+  ]
+}
