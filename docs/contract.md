@@ -10,7 +10,7 @@
 ## Inputs
 - Evaluation request (ticker)
 - Financial data from `.data/financial/fmp/*` (via apex-data-financial plugin)
-- Existing analysis outputs from `.analysis/TICKER/{quality,forensic,dcf}/` (when available)
+- Existing analysis outputs from `.analysis/TICKER/{quality,forensic,insider,dcf,earnings}/` (when available)
 
 ## Outputs
 - `verdict.md` — Investment verdict with 5 phases, investor principles, decision
@@ -19,12 +19,12 @@
 All outputs written to `.analysis/TICKER/strategy-value/`.
 
 ## Data Paths
-- Reads from: `.data/financial/fmp/*`, `.analysis/TICKER/{quality,forensic,dcf}/`
+- Reads from: `.data/financial/fmp/*`, `.analysis/TICKER/{quality,forensic,insider,dcf,earnings}/`
 - Writes to: `.analysis/TICKER/strategy-value/`
 
 ## Dependencies
 - **Plugins (required):** `apex-data-financial` (fmp + finviz)
-- **Plugins (optional):** `apex-analysis-quality`, `apex-analysis-forensic`, `apex-analysis-dcf`
+- **Plugins (optional):** `apex-analysis-quality`, `apex-analysis-forensic`, `apex-analysis-insider`, `apex-analysis-dcf`, `apex-analysis-earnings`
 - **Runtime:** None (no scripts — strategy reasons over data, doesn't compute)
 - No direct API keys required (uses data from financial plugin)
 
