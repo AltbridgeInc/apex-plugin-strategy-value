@@ -4,17 +4,33 @@ Value investing strategy that orchestrates analysis plugins (quality, forensic, 
 
 ## Installation
 
-```bash
-claude plugin install apex-strategy-value@apex-plugin-strategy-value
-```
-
-Or add the repository as a marketplace:
+### First-time installation
 
 ```bash
-claude plugin marketplace add AltbridgeInc/apex-plugin-strategy-value
-claude plugin install apex-strategy-value
+# Add marketplace (one-time setup)
+claude plugin marketplace add AltbridgeInc/apex-plugin-strategy-value --project
+
+# Install plugin
+claude plugin install apex-strategy-value@apex-plugin-strategy-value --project
 ```
 
+### Update to latest version
+
+```bash
+# Update plugin to latest commit
+claude plugin update apex-strategy-value@apex-plugin-strategy-value --project
+
+# Or reinstall
+claude plugin uninstall apex-strategy-value@apex-plugin-strategy-value --project
+claude plugin install apex-strategy-value@apex-plugin-strategy-value --project
+```
+
+### Verify installation
+
+```bash
+# Check plugin is installed
+cat .claude/settings.json | grep apex-strategy-value
+```
 ## Dependencies
 
 This plugin references skills from:
