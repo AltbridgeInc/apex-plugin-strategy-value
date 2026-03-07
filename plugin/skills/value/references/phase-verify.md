@@ -43,7 +43,7 @@ Wire into Phase 2 assessment:
 - **Cluster buying:** Particularly bullish signal — multiple insiders independently buying suggests conviction
 - **Opportunistic sells during earnings beats:** Contradicts reported strength — escalate to red flag
 
-**When `apex-analysis-sentiment:analyze` plugin is available but no output exists:**
+**When `apex-analysis-sentiment:sentiment` plugin is available but no output exists:**
 
 Invoke the sentiment plugin for this ticker first, then read the output.
 
@@ -63,7 +63,7 @@ Use raw FMP data to assess insider conviction:
 
 **When no forensic plugin or output available:**
 
-Use raw FMP data from `.db/data/financial/fmp/TICKER/` to verify:
+Use raw FMP data from `.db/data/financial/fmp/` to verify:
 
 ### 1. FCF vs Net Income (5Y)
 - Compare free cash flow to net income for each of last 5 years

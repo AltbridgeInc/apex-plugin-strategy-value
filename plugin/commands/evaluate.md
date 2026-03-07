@@ -5,93 +5,18 @@ argument-hint: "TICKER"
 
 # /apex-pm-value:evaluate
 
-Run a value investing evaluation for a company using the 5-phase methodology (Understand, Verify, Value, Invert, Verdict) with principles from Buffett, Munger, Graham, Li Lu, Marks, and Klarman.
+Run a value investing evaluation using the 5-phase methodology (Understand, Verify, Value, Invert, Verdict).
 
 ## Usage
+/apex-pm-value:evaluate TICKER
 
-```
-/apex-pm-value:evaluate AAPL
-/apex-pm-value:evaluate MSFT
-/apex-pm-value:evaluate BRK-B
-```
-
-## Workflow
-
-### Step 1: Parse Ticker
-
-Extract ticker from `$ARGUMENTS`. Convert to uppercase.
-
-### Step 2: Check Existing Analysis Outputs
-
-Check for existing analysis outputs that can be synthesized:
-- `.db/analysis/quality/TICKER/` — business quality assessment
-- `.db/analysis/forensic/TICKER/` — forensic accounting scores
-- `.db/analysis/sentiment/TICKER/` — sentiment & institutional ownership signals
-- `.db/analysis/valuation/TICKER/dcf/` — DCF valuation model
-- `.db/analysis/earnings/TICKER/` — earnings trajectory and revision momentum
-
-If outputs exist, the strategy will synthesize them. If not, it checks for installed analysis plugins or falls back to self-contained analysis.
-
-### Step 3: Ensure Financial Data Available
-
-Use `apex-data-financial:financial-fetcher` agent (plugin) to get:
-- Company profile
-- Financial statements (5 years)
-- Key metrics and ratios
-- Current quote
-- Finviz fundamentals snapshot
-
-### Step 4: Run Evaluation
-
-Launch the `value-strategist` agent which will:
-1. Load value investing methodology from `value` skill
-2. Assess available resources (existing outputs, installed plugins)
-3. Execute 5 phases (Understand, Verify, Value, Invert, Verdict)
-4. Answer all investor principle questions
-5. Apply V1-V7 quality checklist
-6. Write verdict.md and synthesis.json
-
-### Step 5: Save Results
-
-Save to `.db/pm/value/TICKER/`:
-```
-.db/pm/value/TICKER/
-├── verdict.md        # Investment verdict with 5 phases
-└── synthesis.json    # Structured decision data
-```
+## What This Does
+1. Parse ticker from `$ARGUMENTS`
+2. Fetch required data via `apex-data-financial:financial-fetcher` agent
+3. Run evaluation via the `value-strategist` agent using `value` methodology
+4. Save results to `.db/pm/value/TICKER/`
 
 ## Output
-
-The `value-strategist` agent produces two outputs:
-
-### `verdict.md` (Investment Verdict)
-| Section | Content |
-|---------|---------|
-| Header | Decision (BUY/WAIT/PASS), conviction, price vs intrinsic value |
-| Business in One Sentence | Li Lu's simplicity test |
-| Phase 1: Understanding | Moat assessment, ROIC, Buffett's 10Y question |
-| Phase 2: Verifying | Number verification, red flags, Munger's check |
-| Phase 3: Valuing | Fair value range, margin of safety, Graham + Marks |
-| Phase 4: Inversion | Stress tests, pre-mortem, bias check, kill conditions |
-| Phase 5: Verdict | Phase scores, decision, conviction, risks |
-
-### `synthesis.json` (Structured Data)
-| Field | Content |
-|-------|---------|
-| `decision` | BUY, WAIT, or PASS |
-| `conviction` | High, Medium, Low, or null |
-| `intrinsic_value` | Low/mid/high range |
-| `margin_of_safety_pct` | Percentage below fair value |
-| `phases` | Per-phase scores and sources |
-| `kill_conditions` | Specific triggers that invalidate thesis |
-| `risks` | Ranked risk list |
-| `metadata` | Mode (synthesis/hybrid/self-contained), plugins used |
-
-## Notes
-
-- Strategy layer reasons over data and analysis — it doesn't compute
-- When analysis plugins are installed, it synthesizes their outputs
-- When they're not, it performs self-contained analysis from FMP data
-- Phase 4 (Inversion) is always self-contained — unique to strategy layer
-- All investor principle questions are answered, not just quoted
-- Results saved to `.db/pm/value/TICKER/`
+Results in `.db/pm/value/TICKER/`:
+- `verdict.md` — Investment verdict with all 5 phases and investor principle answers
+- `synthesis.json` — Structured decision data (decision, conviction, kill conditions)

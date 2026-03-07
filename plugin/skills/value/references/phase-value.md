@@ -62,7 +62,7 @@ Use raw FMP data to assess earnings trajectory:
 
 **When no valuation plugin or output available:**
 
-Use raw FMP data from `.db/data/financial/fmp/TICKER/` to value:
+Use raw FMP data from `.db/data/financial/fmp/` to value:
 
 ### 1. Owner Earnings (Buffett's Concept)
 Buffett's preferred measure of true earnings power:

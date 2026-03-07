@@ -16,7 +16,7 @@ Orchestrates a 5-phase value investing evaluation, synthesizing analysis plugin 
 | apex-data-financial:finviz | Quick fundamentals snapshot and sentiment (plugin) |
 | apex-analysis-quality:quality | Business quality assessment — Phase 1 delegation (plugin, optional) |
 | apex-analysis-forensic:forensic | Forensic accounting — Phase 2 delegation (plugin, optional) |
-| apex-analysis-sentiment:analyze | Sentiment & institutional ownership — Phase 2 enrichment (plugin, optional) |
+| apex-analysis-sentiment:sentiment | Sentiment & institutional ownership — Phase 2 enrichment (plugin, optional) |
 | apex-analysis-valuation:dcf | DCF valuation — Phase 3 delegation (plugin, optional) |
 | apex-analysis-earnings:earnings | Earnings trajectory — Phase 3 enrichment (plugin, optional) |
 

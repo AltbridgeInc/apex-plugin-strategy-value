@@ -17,6 +17,28 @@ The unique contribution of the strategy layer:
 3. **Decision framework** — Converting analysis into Buy / Wait / Pass with kill conditions
 4. **Investor principles** — Not decorative quotes, but required analytical questions
 
+## Methodology Selection
+
+Before starting, classify the investment approach to select the right methodology variant.
+
+### Variant Routing
+
+| Strategy | Detection | Variant | Key Differences |
+|---|---|---|---|
+| Value Investing | Default | `value-workflow.md` | Margin of safety, moat durability, Buffett/Munger/Graham principles |
+| Growth Investing | User specifies growth focus, or company is pre-profit/high-growth | `growth-workflow.md` (future) | TAM/SAM, revenue acceleration, Rule of 40, EV/Revenue valuation |
+| Income/Dividend | User specifies income focus, or mature high-yield company | `income-workflow.md` (future) | Dividend safety, payout ratio, yield sustainability, DRIP compounding |
+| GARP | User specifies GARP approach | `garp-workflow.md` (future) | PEG ratio, growth-at-reasonable-price, blends value + growth metrics |
+
+### How Routing Works
+
+1. Check if user specified a strategy or approach
+2. If not specified, assess company characteristics (pre-profit → growth, high-yield mature → income)
+3. Match against variant table above
+4. If a variant matches → load that variant's workflow INSTEAD of the default
+
+When variant file doesn't exist yet → use default `value-workflow.md` with a note about strategy-specific adjustments needed.
+
 ## Contract
 
 **Inputs:** Ticker symbol
@@ -34,7 +56,7 @@ The unique contribution of the strategy layer:
 | `apex-data-financial:finviz` | Yes | Quick fundamentals snapshot and sentiment |
 | `apex-analysis-quality:quality` | No | Phase 1 delegation — business quality assessment |
 | `apex-analysis-forensic:forensic` | No | Phase 2 delegation — forensic accounting verification |
-| `apex-analysis-sentiment:analyze` | No | Phase 2 enrichment — sentiment & institutional ownership signals |
+| `apex-analysis-sentiment:sentiment` | No | Phase 2 enrichment — sentiment & institutional ownership signals |
 | `apex-analysis-valuation:dcf` | No | Phase 3 delegation — DCF valuation |
 | `apex-analysis-earnings:earnings` | No | Phase 3 enrichment — earnings trajectory and revision momentum |
 
@@ -61,9 +83,7 @@ Before starting, check what analysis outputs already exist:
 .db/analysis/valuation/TICKER/dcf/      → Phase 3 delegation available
 .db/analysis/earnings/TICKER/           → Phase 3 enrichment available
 .db/analysis/valuation/TICKER/comps/    → Phase 3 enrichment (peer-based valuation context)
-.db/analysis/model/TICKER/              → Phase 3 enrichment (rigorous forward projections)
 .db/analysis/earnings/TICKER/research/  → Phase 3+4 enrichment (earnings event context)
-.db/analysis/tearsheet/TICKER/          → Phase 1 quick reference (company snapshot)
 ```
 
 Also check if analysis plugin skills are available in the current environment (they may be installed but not yet run for this ticker).

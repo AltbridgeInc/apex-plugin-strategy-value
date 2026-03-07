@@ -16,7 +16,7 @@ Before starting any phase, determine what's available:
 2. **Check installed plugins:**
    - Is `apex-analysis-quality:quality` skill available? → can invoke for Phase 1
    - Is `apex-analysis-forensic:forensic` skill available? → can invoke for Phase 2
-   - Is `apex-analysis-sentiment:analyze` skill available? → can invoke for Phase 2 enrichment
+   - Is `apex-analysis-sentiment:sentiment` skill available? → can invoke for Phase 2 enrichment
    - Is `apex-analysis-valuation:dcf` skill available? → can invoke for Phase 3
    - Is `apex-analysis-earnings:earnings` skill available? → can invoke for Phase 3 enrichment
 
@@ -26,7 +26,7 @@ Before starting any phase, determine what's available:
    - Neither → self-contained analysis from FMP data
 
 4. **Always ensure FMP data is available:**
-   - Use `apex-data-financial:fmp` to fetch data if `.db/data/financial/fmp/TICKER/` doesn't exist
+   - Use `apex-data-financial:fmp` to fetch data if `.db/data/financial/fmp/` doesn't have data for this ticker
 
 ## Step 1: Phase 1 — Understand the Business
 
